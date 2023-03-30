@@ -1,8 +1,11 @@
 package com.mercadona.laProveta.exceptions;
 
-public class IdPaletException extends Exception {
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
-    public IdPaletException(String message) {
-        super(message);
+
+public class IdPaletException extends RuntimeException {
+
+    public IdPaletException() {
+        //super(message);
     }
 }

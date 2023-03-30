@@ -1,11 +1,10 @@
 package com.mercadona.laProveta.services;
 
 import com.mercadona.laProveta.dto.PaletDto;
-import com.mercadona.laProveta.exceptions.IdArticuloException;
-import com.mercadona.laProveta.exceptions.IdPaletException;
 import com.mercadona.laProveta.model.Product;
 import com.mercadona.laProveta.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -75,7 +74,7 @@ public class EanServicesImpl implements EanServices{
     }
 
     @Override
-    public PaletDto get(String ean128) throws ParseException, IdPaletException, IdArticuloException {
+    public ResponseEntity<PaletDto> get(String ean128) throws ParseException {
 
         LocalDateTime dateTime = null;
         Long idPalet = null;
@@ -118,19 +117,17 @@ public class EanServicesImpl implements EanServices{
                     if(ean.charAt(2) == '0'){
                         weight = Long.valueOf(getWeight(ean));
                         ean = ean.substring(10);
+                    }else{
+                        ean = ean.substring(1);
                     }
                     break;
                 default:
                     eanFinished = true;
             }
         }
-        if(idPalet == null){
-            throw new Error("Error: no id de palet facilitado.");
-        }else if(idArticulo == null){
-            throw new Error("Error: no id de artículo facilitado.");
-        }
 
-        return new PaletDto(idPalet,idArticulo,nombreArticulo,lote,dateTime,weight);
+        PaletDto palet = new PaletDto(idPalet,idArticulo,nombreArticulo,lote,dateTime,weight);
+        return ResponseEntity.accepted().body(palet);
     }
 
     @Override

@@ -1,13 +1,14 @@
 package com.mercadona.laProveta.rest;
 
 import com.mercadona.laProveta.dto.PaletDto;
-import com.mercadona.laProveta.exceptions.IdArticuloException;
-import com.mercadona.laProveta.exceptions.IdPaletException;
+import com.mercadona.laProveta.exceptions.*;
 import com.mercadona.laProveta.services.EanServices;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.PrinterLocation;
 import java.text.ParseException;
 
 @Transactional
@@ -19,9 +20,24 @@ public class Ean128Controller {
     private final EanServices ean;
 
     @GetMapping("/get_palet")
-    public PaletDto get(@RequestParam String ean128) throws ParseException, IdArticuloException, IdPaletException {
-
-        return ean.get(ean128);
+    public ResponseEntity<PaletDto> get(@RequestParam String ean128) throws ParseException {
+        PaletDto palet = ean.get(ean128).getBody();
+        if(palet.getId() == null){
+            throw new IdPaletException();
+        }
+        else if(palet.getIdArticulo() == null){
+            throw new IdArticuloException();
+        }
+        else if(palet.getLote() == null){
+            throw new NumLoteException();
+        }
+        else if(palet.getFechaFabricacion() == null){
+            throw new FechaFabricacionException();
+        }
+        else if(palet.getPesoEnGramos() == null){
+            throw new PesoException();
+        }
+        return ResponseEntity.accepted().body(palet);
     }
 
     @DeleteMapping("/delete")

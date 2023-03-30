@@ -1,8 +1,8 @@
 package com.mercadona.laProveta.exceptions;
 
-public class IdArticuloException extends Exception{
+public class IdArticuloException extends RuntimeException{
 
-    public IdArticuloException(String message) {
-        super(message);
+    public IdArticuloException() {
+
     }
 }
