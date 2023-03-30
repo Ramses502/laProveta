@@ -1,12 +1,11 @@
 package com.mercadona.laProveta.dto;
 
 import lombok.Data;
-import net.bytebuddy.asm.Advice;
 
 import java.time.LocalDateTime;
 
 @Data
-public class PaleDto {
+public class PaletDto {
 
     private Long id;
     private String idArticulo;
@@ -15,7 +14,7 @@ public class PaleDto {
     private LocalDateTime fechaFabricacion;
     private Long pesoEnGramos;
 
-    public PaleDto(Long id, String idArticulo, String nombreArticulo, String lote, LocalDateTime date, Long pesoEnGramos){
+    public PaletDto(Long id, String idArticulo, String nombreArticulo, String lote, LocalDateTime date, Long pesoEnGramos){
         this.id = id;
         this.idArticulo = idArticulo;
         this.nombreArticulo = nombreArticulo;

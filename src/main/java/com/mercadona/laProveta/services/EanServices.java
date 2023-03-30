@@ -1,6 +1,8 @@
 package com.mercadona.laProveta.services;
 
-import com.mercadona.laProveta.dto.PaleDto;
+import com.mercadona.laProveta.dto.PaletDto;
+import com.mercadona.laProveta.exceptions.IdArticuloException;
+import com.mercadona.laProveta.exceptions.IdPaletException;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -19,7 +21,7 @@ public interface EanServices {
 
     public String getNombre(String ean128);
 
-    public PaleDto get(String ean128) throws ParseException;
+    public PaletDto get(String ean128) throws ParseException, IdPaletException, IdArticuloException;
 
     public void delete(String id);
 

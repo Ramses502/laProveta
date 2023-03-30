@@ -1,19 +1,14 @@
 package com.mercadona.laProveta.rest;
 
-import com.mercadona.laProveta.dto.PaleDto;
-import com.mercadona.laProveta.model.Product;
-import com.mercadona.laProveta.repository.ProductRepository;
+import com.mercadona.laProveta.dto.PaletDto;
+import com.mercadona.laProveta.exceptions.IdArticuloException;
+import com.mercadona.laProveta.exceptions.IdPaletException;
 import com.mercadona.laProveta.services.EanServices;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @Transactional
 @RestController
@@ -24,7 +19,7 @@ public class Ean128Controller {
     private final EanServices ean;
 
     @GetMapping("/get_palet")
-    public PaleDto get(@RequestParam String ean128) throws ParseException {
+    public PaletDto get(@RequestParam String ean128) throws ParseException, IdArticuloException, IdPaletException {
 
         return ean.get(ean128);
     }
