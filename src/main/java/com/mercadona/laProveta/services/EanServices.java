@@ -1,10 +1,14 @@
 package com.mercadona.laProveta.services;
 
 import com.mercadona.laProveta.dto.PaletDto;
+import com.mercadona.laProveta.model.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface EanServices {
 
@@ -29,4 +33,6 @@ public interface EanServices {
     public void put(String id, String name);
 
     public LocalDateTime formatDate(String ean128) throws ParseException;
+
+    public Page<Product> getAllProducts(Pageable pageable);
 }

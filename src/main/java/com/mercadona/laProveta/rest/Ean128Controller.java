@@ -2,14 +2,18 @@ package com.mercadona.laProveta.rest;
 
 import com.mercadona.laProveta.dto.PaletDto;
 import com.mercadona.laProveta.exceptions.*;
+import com.mercadona.laProveta.model.Product;
 import com.mercadona.laProveta.services.EanServices;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.attribute.standard.PrinterLocation;
 import java.text.ParseException;
+import java.util.List;
 
 @Transactional
 @RestController
@@ -38,6 +42,11 @@ public class Ean128Controller {
             throw new PesoException();
         }
         return ResponseEntity.accepted().body(palet);
+    }
+
+    @GetMapping("/get_all_products")
+    public Page<Product> getAllProducts(Pageable pageable){
+        return ean.getAllProducts(pageable);
     }
 
     @DeleteMapping("/delete")
